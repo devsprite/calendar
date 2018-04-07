@@ -1,0 +1,12 @@
+{
+    "name": "dominique/calendar",
+    "require": {
+        "phpunit/phpunit": "^7.1"
+    },
+    "authors": [
+        {
+            "name": "Dominique",
+            "email": "dominique@chez-dominique.fr"
+        }
+    ]
+}
