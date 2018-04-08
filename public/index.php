@@ -1,34 +1,24 @@
 <?php
 
-use App\Month;
+use Calendar\Month;
+use Calendar\Events;
+require('../src/Calendar/Month.php');
+require('../src/Calendar/Events.php');
 
-require('../src/Month.php');
 
-try {
-    $month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-$start = $month->getStartingDay()->modify('last monday');
+$month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+$events = new Events();
 
+$weeks = $month->getWeeks();
+$start = $month->getStartingDay();
+$start = ($start->format('N') === '1') ? $start : $month->getStartingDay()->modify('last monday');
+$end = (clone $start)->modify('+' . (6 + 7 * ($weeks -1)) . ' days');
+
+$events = $events->getEventsBetweenByDays($start, $end);
+
+require ('../views/header.php');
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/calendar.css">
-    <title>Calendar</title>
-</head>
-<body>
 
-<nav class="navbar navbar-dark bg-primary mb-3">
-    <a href="index.php" class="navbar-brand">Mon calendrier</a>
-</nav>
 
 <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
     <h1><?= $month->toString(); ?></h1>
@@ -39,22 +29,25 @@ $start = $month->getStartingDay()->modify('last monday');
     </div>
 </div>
 
-<table class="calendar__table calendar__table_<?= $month->getWeeks() ?>weeks">
-    <?php for ($i = 0; $i < $month->getWeeks(); $i++) : ?>
+<table class="calendar__table calendar__table_<?= $weeks ?>weeks">
+    <?php for ($i = 0; $i < $weeks; $i++) : ?>
     <tr>
         <?php foreach ($month->days as $key => $day) :
             $date =(clone $start)->modify("+" . ($key + $i * 7) . " days" );
+            $eventsForDay = $events[$date->format('Y-m-d')] ?? [];
         ?>
         <td>
             <?php if($i === 0) : ?>
             <div class="calendar__weekday"><?= $day; ?></div>
             <?php endif ?>
             <div class="calendar__day <?= $month->withinMonth($date) ? '' : 'calendar__othermonth';?>"><?= $date->format('d'); ?></div>
+            <?php foreach ($eventsForDay as $event) : ?>
+            <div class="calendar__event"><?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="event.php?id=<?=$event['id'];?>"><?=$event['name'];?></a></div>
+            <?php endforeach; ?>
         </td>
         <?php endforeach; ?>
     </tr>
     <?php endfor ?>
 </table>
 
-</body>
-</html>
+<?php require ('../views/footer.php'); ?>
