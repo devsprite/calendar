@@ -2,8 +2,7 @@
 
 namespace App;
 
-require(__DIR__ . '/../src/Month.php');
-
+use Calendar\Month;
 use PHPUnit\Framework\TestCase;
 
 class MonthTest extends TestCase
