@@ -2,12 +2,12 @@
 
 use Calendar\Month;
 use Calendar\Events;
-require('../src/Calendar/Month.php');
-require('../src/Calendar/Events.php');
 
+require ('../src/bootstrap.php');
 
 $month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
-$events = new Events();
+$pdo = get_pdo();
+$events = new Events($pdo);
 
 $weeks = $month->getWeeks();
 $start = $month->getStartingDay();
@@ -42,7 +42,7 @@ require ('../views/header.php');
             <?php endif ?>
             <div class="calendar__day <?= $month->withinMonth($date) ? '' : 'calendar__othermonth';?>"><?= $date->format('d'); ?></div>
             <?php foreach ($eventsForDay as $event) : ?>
-            <div class="calendar__event"><?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="event.php?id=<?=$event['id'];?>"><?=$event['name'];?></a></div>
+            <div class="calendar__event"><?= (new DateTime($event['start']))->format('H:i'); ?> - <a href="event.php?id=<?=$event['id'];?>"><?= h($event['name']);?></a></div>
             <?php endforeach; ?>
         </td>
         <?php endforeach; ?>
