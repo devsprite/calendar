@@ -4,20 +4,10 @@ namespace App;
 
 require(__DIR__ . '/../src/Month.php');
 
-use ArgumentCountError;
 use PHPUnit\Framework\TestCase;
 
 class MonthTest extends TestCase
 {
-
-    /**
-     * @expectedException   \Exception
-     * @expectedExceptionMessage Le mois n'est pas valide.
-     */
-    public function testExceptionMonthNether0()
-    {
-        new Month(0, 2018);
-    }
 
     /**
      * @expectedException   \Exception

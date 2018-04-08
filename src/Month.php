@@ -9,6 +9,7 @@ class Month
     private $month;
     private $year;
     private $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    public $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     /**
      * Month constructor.
@@ -18,7 +19,7 @@ class Month
      */
     public function __construct(int $month = null, int $year = null)
     {
-        if ($month === null) {
+        if ($month === null || $month < 1 || $month > 12) {
             $month = (int)date('m');
         }
 
@@ -33,7 +34,7 @@ class Month
         if ($year < 1970) {
             throw new Exception("L'année est inférieure à 1970.");
         }
-        $month = $month % 12;
+
         $this->month = $month;
         $this->year = $year;
 
@@ -54,7 +55,7 @@ class Month
      */
     public function getWeeks(): int
     {
-        $start = new \DateTime("{$this->year}-{$this->month}-01");
+        $start = $this->getStartingDay();
         $end = new \DateTime($start->format('Y-m-t'));
 
         $nbr_start = (int)$start->format('W');
@@ -70,9 +71,63 @@ class Month
 
         $nbr_weeks = $nbr_end - $nbr_start + 1;
 
-        var_dump($nbr_start, $nbr_end, $nbr_weeks);
+        //var_dump($nbr_start, $nbr_end, $nbr_weeks);
 
         return $nbr_weeks;
+    }
+
+    /**
+     * Retourne le premier jour du mois
+     * @return \DateTime
+     */
+    public function getStartingDay(): \DateTime
+    {
+        return new \DateTime("{$this->year}-{$this->month}-01");
+    }
+
+
+    /**
+     * Est-ce que le jour est dans le mois en cours
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function withinMonth(\DateTime $date): bool
+    {
+        return $this->getStartingDay()->format('Y-m') === $date->format('Y-m');
+    }
+
+    /**
+     * Retourne le mois suivant
+     * @return Month
+     * @throws Exception
+     */
+    public function nextMonth(): Month
+    {
+        $month = $this->month + 1;
+        $year = $this->year;
+        if($month > 12) {
+            $month = 1;
+            $year += 1;
+        }
+
+        return new Month($month, $year);
+    }
+
+    /**
+     * Retourne le mois précédant
+     * @return Month
+     * @throws Exception
+     */
+    public function previousMonth(): Month
+    {
+        $month = $this->month - 1;
+        $year = $this->year;
+        if($month < 1) {
+            $month = 12;
+            $year -= 1;
+        }
+
+        return new Month($month, $year);
     }
 
     /**
