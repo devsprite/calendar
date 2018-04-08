@@ -57,4 +57,21 @@ class MonthTest extends TestCase
 
     }
 
+    public function testPreviousMonth()
+    {
+        $month = new Month(1, 2018);
+        $previousMonth = $month->previousMonth();
+
+        $this->assertEquals(12, $previousMonth->getMonth(), "the month must be 12");
+        $this->assertEquals(2017, $previousMonth->getYear(), 'The year must be 2017');
+    }
+
+    public function testNextMonth()
+    {
+        $month = new Month(12, 2018);
+        $nextMonth = $month->nextMonth();
+
+        $this->assertEquals(1, $nextMonth->getMonth(), "the month must be 1");
+        $this->assertEquals(2019, $nextMonth->getYear(), 'The year must be 2019');
+    }
 }
