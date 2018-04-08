@@ -2,7 +2,7 @@
 
 namespace App;
 
-require (__DIR__ . '/../src/Month.php');
+require(__DIR__ . '/../src/Month.php');
 
 use ArgumentCountError;
 use PHPUnit\Framework\TestCase;
@@ -11,20 +11,12 @@ class MonthTest extends TestCase
 {
 
     /**
-     * @expectedException ArgumentCountError
-     */
-    public function testExceptionConstructWithoutParams()
-    {
-        new Month();
-    }
-
-    /**
      * @expectedException   \Exception
      * @expectedExceptionMessage Le mois n'est pas valide.
      */
     public function testExceptionMonthNether0()
     {
-       new Month(0,2018);
+        new Month(0, 2018);
     }
 
     /**
@@ -33,7 +25,14 @@ class MonthTest extends TestCase
      */
     public function testExceptionYearNether1970()
     {
-        new Month(2,1969);
+        new Month(2, 1969);
+    }
+
+    public function testConstructWithoutParams()
+    {
+        $month = new Month();
+        $this->assertEquals((int)date('m'), $month->getMonth(), "Must return current month.");
+        $this->assertEquals((int)date('Y'), $month->getYear(), "Must return current year.");
     }
 
 }

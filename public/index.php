@@ -5,9 +5,9 @@ use App\Month;
 require ('../src/Month.php');
 
 try {
-    $month = new Month(1, 2018);
+    $month = new Month();
 } catch (Exception $e) {
-    echo $e;
+    echo $e->getMessage();
 }
 
 ?>
@@ -28,7 +28,7 @@ try {
     <a href="index.php" class="navbar-brand">Mon calendrier</a>
 </nav>
 
-<h1>Mars 2018</h1>
+<h1><?= $month->toString() ?></h1>
 
 </body>
 </html>
