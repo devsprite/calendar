@@ -1,11 +1,9 @@
 <?php
-
 use App\Month;
-
 require ('../src/Month.php');
 
 try {
-    $month = new Month();
+    $month = new Month($_GET['month'] ?? null, $_GET['year'] ?? null);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
@@ -29,6 +27,12 @@ try {
 </nav>
 
 <h1><?= $month->toString() ?></h1>
+
+<?= $month->getWeeks() ?>
+
+<table>
+
+</table>
 
 </body>
 </html>

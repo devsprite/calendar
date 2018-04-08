@@ -35,4 +35,36 @@ class MonthTest extends TestCase
         $this->assertEquals((int)date('Y'), $month->getYear(), "Must return current year.");
     }
 
+    public function testGetWeeks()
+    {
+        $month = new Month(4, 2018);
+        $this->assertEquals(6, $month->getWeeks() , 'April 2018, must return 6 weeks');
+
+        $month->setMonth(7);
+        $this->assertEquals(6, $month->getWeeks(), 'July 2018, must return 6 weeks');
+
+        $month->setMonth(1);
+        $this->assertEquals(5, $month->getWeeks(), 'January 2018, must return 5 weeks');
+
+        $month->setMonth(12);
+        $this->assertEquals(6, $month->getWeeks(), 'December 2018, must return 6 weeks');
+
+        $month->setYear(2017);
+
+        $month->setMonth(1);
+        $this->assertEquals(6, $month->getWeeks(), 'January 2017 ,must return 5 weeks');
+
+        $month->setMonth(12);
+        $this->assertEquals(5, $month->getWeeks(), 'December 2017, must return 5 weeks');
+
+        $month->setYear(2016);
+
+        $month->setMonth(1);
+        $this->assertEquals(5, $month->getWeeks(), 'January 2016 ,must return 5 weeks');
+
+        $month->setMonth(2);
+        $this->assertEquals(5, $month->getWeeks(), 'February 2016 ,must return 5 weeks');
+
+    }
+
 }

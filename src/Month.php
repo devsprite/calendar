@@ -33,7 +33,7 @@ class Month
         if ($year < 1970) {
             throw new Exception("L'année est inférieure à 1970.");
         }
-
+        $month = $month % 12;
         $this->month = $month;
         $this->year = $year;
 
@@ -43,19 +43,81 @@ class Month
      * Retourne le mois est l'année en toute lettres ex : Mars 2018
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->months[$this->month - 1] . ' ' . $this->year;
     }
 
+    /**
+     * Retourne le nombre de semaine dans un mois
+     * @return int
+     */
+    public function getWeeks(): int
+    {
+        $start = new \DateTime("{$this->year}-{$this->month}-01");
+        $end = new \DateTime($start->format('Y-m-t'));
+
+        $nbr_start = (int)$start->format('W');
+        $nbr_end = (int)$end->format('W');
+
+        if($nbr_end < $nbr_start) {
+            if($nbr_start === 53) {
+                $nbr_end += 53;
+            } else {
+                $nbr_end += 52;
+            }
+        }
+
+        $nbr_weeks = $nbr_end - $nbr_start + 1;
+
+        var_dump($nbr_start, $nbr_end, $nbr_weeks);
+
+        return $nbr_weeks;
+    }
+
+    /**
+     * @return int
+     */
     public function getMonth()
     {
         return $this->month;
     }
 
+    /**
+     * @return int
+     */
     public function getYear()
     {
         return $this->year;
     }
+
+    /**
+     * @param int $month
+     * @throws Exception
+     */
+    public function setMonth(int $month)
+    {
+        if($month > 0 && $month < 13) {
+            $this->month = $month;
+        } else {
+            throw new Exception('Month must be between 1 and 12');
+        }
+    }
+
+    /**
+     * @param int $year
+     * @throws Exception
+     */
+    public function setYear(int $year)
+    {
+        if($year > 1970) {
+            $this->year = $year;
+        } else {
+            throw new Exception('Year must be greater than 1970');
+        }
+    }
+
+
+
 
 }
