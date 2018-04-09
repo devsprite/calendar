@@ -65,4 +65,15 @@ class Events
         return $result;
     }
 
+    public function create(Event $event): bool
+    {
+        $stmt = $this->pdo->prepare('INSERT INTO `events` (name, description, start, end) VALUES (?, ?, ?, ?)');
+        return $stmt->execute([
+            $event->getName(),
+            $event->getDescription(),
+            $event->getStart()->format('Y-m-d H:i:s'),
+            $event->getEnd()->format('Y-m-d H:i:s'),
+        ]);
+    }
+
 }

@@ -31,6 +31,12 @@ require('../views/header.php');
     </div>
 </div>
 
+<?php if(isset($_GET['success'])) : ?>
+<div class="container">
+    <div class="alert alert-success">L'évènement a bien été sauvegardé</div>
+</div>
+<?php endif ?>
+
 <div class="calendar">
 
     <table class="calendar__table calendar__table_<?= $weeks ?>weeks">
