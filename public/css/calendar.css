@@ -1,3 +1,7 @@
+.calendar {
+    position: relative;
+}
+
 .calendar__table {
     width: 100%;
     height: calc(100vh - 128px);
@@ -23,4 +27,31 @@
 
 .calendar__othermonth {
     opacity: 0.3;
+}
+
+.calendar__button {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 55Px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px;
+    color: #FFF;
+    background-color: #007bff;
+    border-radius: 50%;
+    text-decoration: none;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    transition: transform 0.3s;
+}
+
+.calendar__button:hover {
+    transform: scale(1.1);
+    color: #FFF;
+    text-decoration: none;
 }
