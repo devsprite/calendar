@@ -4,7 +4,7 @@
 * develop [![Build Status](https://travis-ci.org/devsprite/calendar.svg?branch=develop)](https://travis-ci.org/devsprite/calendar)
 
 ## v0.0.8
-Dev part3
+Add event form
 
 ## v0.0.7
 add view event
