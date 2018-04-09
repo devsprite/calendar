@@ -41,7 +41,7 @@ class Event
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -57,7 +57,7 @@ class Event
     /**
      * @param mixed $description
      */
-    public function setDescription($description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -73,7 +73,7 @@ class Event
     /**
      * @param mixed $start
      */
-    public function setStart($start): void
+    public function setStart(string $start): void
     {
         $this->start = $start;
     }
@@ -89,7 +89,7 @@ class Event
     /**
      * @param mixed $end
      */
-    public function setEnd($end): void
+    public function setEnd(string $end): void
     {
         $this->end = $end;
     }
