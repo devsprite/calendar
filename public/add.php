@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $event->setEnd(DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
         $events = new \Calendar\Events(get_pdo());
         $events->create($event);
-        header('Location: /index.php?success=1');
+        header('Location: index.php?success=1');
         exit;
     }
 
