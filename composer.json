@@ -8,5 +8,11 @@
             "name": "Dominique",
             "email": "dominique@chez-dominique.fr"
         }
-    ]
+    ],
+    "autoload": {
+      "psr-4": {
+          "Calendar\\": "src/Calendar",
+          "App\\": "src/App"
+      }
+    }
 }
