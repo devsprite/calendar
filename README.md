@@ -3,6 +3,10 @@
 * Master [![Build Status](https://travis-ci.org/devsprite/calendar.svg?branch=master)](https://travis-ci.org/devsprite/calendar)
 * develop [![Build Status](https://travis-ci.org/devsprite/calendar.svg?branch=develop)](https://travis-ci.org/devsprite/calendar)
 
+## v0.0.9
+Add Tests
+Add Tests
+
 ## v0.0.8
 Add event form
 
