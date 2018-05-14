@@ -5,7 +5,6 @@
 
 ## v0.0.9
 Add Tests
-Add Tests
 
 ## v0.0.8
 Add event form
